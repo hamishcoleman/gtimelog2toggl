@@ -16,7 +16,7 @@ re.pl:
 
 cover:
 	cover -delete
-	COVER=true $(MAKE) test
+	-COVER=true $(MAKE) test
 	cover
 
 test:

@@ -1,0 +1,24 @@
+
+Integration for toggl
+---------------------
+
+Currently the only thing that this script does is to load in the data from
+my local time tracker and import that into toggl.
+
+Toggl actually has a CSV import, but we cannot use that for several reasons
+- it is only available for administrator logins
+- they expect you to use it to setup a new project, not to do ongoing imports
+
+gtimelog2toggl
+--------------
+
+I want to be able to use my local (non cloud) time tracker and at regular
+intervals export data from that into toggl, by creating new toggl time
+records.
+
+My local data has prefixes to indicate which items are intended for toggl.
+I may wish to relatively inflate these times if there is a significant amount
+of non toggl entries (need to check what the data looks like compared to our
+intents)
+I choose not to have the ability to edit old gtimelog entries and have the
+changes reflected in toggl -- only new entries are to be created.

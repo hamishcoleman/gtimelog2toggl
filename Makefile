@@ -4,7 +4,8 @@ INSTALLDIR := installdir
 all:    dummy
 
 build_depends:
-	aptitude install libtest-file-contents-perl
+	aptitude install libtest-file-contents-perl libdatetime-format-iso8601-perl \
+		libdevel-cover-perl
 
 install:
 	mkdir -p $(INSTALLDIR)

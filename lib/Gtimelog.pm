@@ -85,9 +85,7 @@ sub _load_events {
         # FIXME - if virtual_midnight is between prev and this, then we also
         # need to reset time_prev and skip this line
 
-        my $minutes = ($time_this-$time_prev)->in_units('minutes');
-
-        my $event = Event->new()->set_start($time_prev)->set_minutes($minutes)->set_description($description);
+        my $event = Event->new()->set_start($time_prev)->set_finish($time_this)->set_description($description);
         push @event,$event;
         $time_prev = $time_this;
     }

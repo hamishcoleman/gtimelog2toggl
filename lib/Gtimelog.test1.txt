@@ -9,4 +9,6 @@
 # following line is intentionally malformatted, which checks the error path
 xyzzy
 
+2014-07-08 09:15: Meta: Start **
+2014-07-08 09:45: Test: Events
 

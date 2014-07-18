@@ -5,6 +5,7 @@ package Gtimelog;
 
 use FileHandle;
 use DateTime::Format::Strptime;
+use DateTime::Duration;
 use Event;
 
 sub new {
@@ -56,6 +57,7 @@ sub _load_events {
 
     my @events;
     my $time_prev;
+    my $vmidnight_prev;
     while (<$fh>) {
         chomp;
 
@@ -76,20 +78,48 @@ sub _load_events {
 
         # FIXME - if !defined time_this ...
 
-        if (!defined($time_prev)) {
-            # the first entry in the file has no reference
-            $time_prev = $time_this;
-            next;
+        my $vmidnight_this = $self->_dt2vmidnight($time_this);
+
+        # the first entry in the file has no prev time reference
+        # or the first entry of the day has a different vmidnight reference
+        if (defined($time_prev) and $vmidnight_this == $vmidnight_prev) {
+            my $event = Event->new()->set_start($time_prev)->set_finish($time_this)->set_description($description);
+            push @event,$event;
         }
 
-        # FIXME - if virtual_midnight is between prev and this, then we also
-        # need to reset time_prev and skip this line
-
-        my $event = Event->new()->set_start($time_prev)->set_finish($time_this)->set_description($description);
-        push @event,$event;
         $time_prev = $time_this;
+        $vmidnight_prev = $vmidnight_this;
     }
     return @event;
+}
+
+sub virtual_midnight {
+    my ($self) = @_;
+
+    # TODO - allow actually setting the virtual midnight
+
+    return DateTime::Duration->new(
+        hours   => 2,
+        minutes => 0,
+    );
+}
+
+# Given a datetime, calculate what the correct virtual midnight for that
+# time is (ie, the first end-of-day after the given datetime)
+sub _dt2vmidnight {
+    my ($self,$dt) = @_;
+
+    my $vm = $dt->clone();
+    $vm->truncate( to=>'day' );
+    $vm->add_duration( $self->virtual_midnight() );
+
+    # vm is now right if dt is after 00:00 but before virtual midnight
+
+    if ($dt > $vm) {
+        $vm->add( days=>1 );
+    }
+
+    return $vm;
 }
 
 1;

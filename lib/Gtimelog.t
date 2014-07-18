@@ -48,4 +48,8 @@ $gtimelog->set_filename('file not found');
 is(scalar(@events),4, 'count events from test1');
 
 
+$dt= DateTime::Format::ISO8601->parse_datetime('2014-07-08T00:00:00');
+@events = $gtimelog->after($dt);
+is(scalar(@events),1, 'count events after timestamp');
+
 done_testing();

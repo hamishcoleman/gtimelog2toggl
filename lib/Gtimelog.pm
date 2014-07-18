@@ -122,4 +122,10 @@ sub _dt2vmidnight {
     return $vm;
 }
 
+sub after {
+    my ($self,$dt) = @_;
+
+    return grep {$_->start > $dt} $self->events();
+}
+
 1;

@@ -1,4 +1,6 @@
 package Event;
+use warnings;
+use strict;
 #
 # A generic timesheet entry
 #

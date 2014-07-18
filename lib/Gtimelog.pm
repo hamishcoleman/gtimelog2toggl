@@ -1,4 +1,6 @@
 package Gtimelog;
+use warnings;
+use strict;
 #
 # Routines for opening and using a gtimelog file
 #
@@ -84,13 +86,13 @@ sub _load_events {
         # or the first entry of the day has a different vmidnight reference
         if (defined($time_prev) and $vmidnight_this == $vmidnight_prev) {
             my $event = Event->new()->set_start($time_prev)->set_finish($time_this)->set_description($description);
-            push @event,$event;
+            push @events,$event;
         }
 
         $time_prev = $time_this;
         $vmidnight_prev = $vmidnight_this;
     }
-    return @event;
+    return @events;
 }
 
 sub virtual_midnight {

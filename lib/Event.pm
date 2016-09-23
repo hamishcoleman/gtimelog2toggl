@@ -12,6 +12,9 @@ use HC::Strptime;
 # Use one global instance for all cases
 my $_parser = HC::Strptime->format();
 
+# A global var to force the timezone
+our $TIMEZONE;
+
 sub new {
     my ($class) = shift;
     my $self = {};
@@ -25,7 +28,10 @@ sub _fixup_datetime {
     my ($self) = shift;
     my ($dt) = shift;
 
-    # We could have a global timezone setting here
+    # Allow forcing all events into one global timezone here
+    if (defined($TIMEZONE)) {
+        $dt->set_time_zone($TIMEZONE);
+    }
 
     $dt->set_formatter($_parser);
 }

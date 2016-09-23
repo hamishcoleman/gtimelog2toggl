@@ -29,6 +29,8 @@ is($gtimelog->events(),undef, 'get events with no filename');
 #$gtimelog->set_filename('file not found');
 #is($gtimelog->events(),undef, 'get events with file not found error');
 
+$Event::TIMEZONE = 'UTC';
+
 my $filename = File::Spec->catfile($testdir,'Gtimelog.test1.txt');
 isa_ok($gtimelog->set_filename($filename),'Gtimelog', 'set filename');
 is($gtimelog->filename,$filename, 'get filename');

@@ -7,10 +7,12 @@ use strict;
 # Reused by other parts to 
 #
 
-use HC::Strptime;
+use DateTime::Format::Strptime;
 
 # Use one global instance for all cases
-my $_parser = HC::Strptime->format();
+my $_parser = DateTime::Format::Strptime->new(
+    pattern => "%FT%H:%M:%S%z",
+);
 
 # A global var to force the timezone
 our $TIMEZONE;

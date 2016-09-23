@@ -1,0 +1,28 @@
+#!/usr/bin/env perl
+use warnings;
+use strict;
+#
+# Quick hack to call functions
+#
+
+use File::Spec;
+
+# allow the libs to be in the bin dir
+use FindBin;
+use lib File::Spec->catdir($FindBin::RealBin,"lib");
+use lib File::Spec->catdir($ENV{HOME},"s/bin/lib");
+
+
+use Toggl::Request;
+
+my %args = (
+    @ARGV,
+);
+
+my $toggl = Toggl::Request->new()->set_api_token($args{api_token});
+
+my ($last,$wid) = $toggl->hack_lasttime();
+
+print "Last=",$last,"\n";
+print "WID=",$wid,"\n";
+

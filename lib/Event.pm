@@ -31,6 +31,9 @@ sub _fixup_datetime {
     # Allow forcing all events into one global timezone here
     if (defined($TIMEZONE)) {
         $dt->set_time_zone($TIMEZONE);
+    } elsif ($dt->time_zone()->is_floating()) {
+        # this object doesnt alreadt have a timezone, so force the local one
+        $dt->set_time_zone('local');
     }
 
     $dt->set_formatter($_parser);

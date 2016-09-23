@@ -72,9 +72,9 @@ sub _load_events {
 
         my $time_this = $strp->parse_datetime($1);
 
-        # FIXME - this assumes that the computer creating the gtimelog never
-        # moves timezones, but I cannot think of any simple answer ..
-        $time_this->set_time_zone('local');
+        # TODO - provide a way to specify a known timezone for this file
+        # and set that here.  Probably never needed in practice..
+        #    $time_this->set_time_zone($oob_timezone);
 
         my $description = $2;
 

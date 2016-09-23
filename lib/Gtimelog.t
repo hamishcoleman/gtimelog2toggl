@@ -39,10 +39,10 @@ my @events;
 @events = $gtimelog->events();
 is(scalar(@events),4, 'count events from test1');
 
-is($events[0]->as_string(),'2014-07-07T09:00:00+0100, 30m, Catchup: BSC','Check event 1');
-is($events[1]->as_string(),'2014-07-07T09:30:00+0100, 102m, Other:','Check event 2');
-is($events[2]->as_string(),'2014-07-07T11:12:00+0100, 42m, Catchup: Nick','Check event 3');
-is($events[3]->as_string(),'2014-07-08T09:15:00+0100, 30m, Test: Events','Check event 4');
+is($events[0]->as_string(),'2014-07-07T09:00:00+0000, 30m, Catchup: BSC','Check event 1');
+is($events[1]->as_string(),'2014-07-07T09:30:00+0000, 102m, Other:','Check event 2');
+is($events[2]->as_string(),'2014-07-07T11:12:00+0000, 42m, Catchup: Nick','Check event 3');
+is($events[3]->as_string(),'2014-07-08T09:15:00+0000, 30m, Test: Events','Check event 4');
 
 # For the coverage, check the events are cached
 $gtimelog->set_filename('file not found');
